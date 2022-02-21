@@ -44,5 +44,4 @@ def predict(X_train, y_train, X_test, type = 'Regression'):
 
     pipe.fit(X_train, y_train)
     prediction = pipe.predict(X_test)
-
     return prediction
