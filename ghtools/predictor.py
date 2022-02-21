@@ -1,3 +1,14 @@
+url = "https://wagon-public-datasets.s3.amazonaws.com/Machine%20Learning%20Datasets/ML_Cars_Recap_dataset.csv"
+
+import numpy as np
+import pandas as pd
+df = pd.read_csv(url)
+X = df.drop(columns = 'price')
+y = df[['price']]
+from sklearn.model_selection import train_test_split
+X_train, X_test, y_train, y_test = train_test_split(X, y)
+y_train.price = y_train.price.apply(lambda x : 1 if x == 'expensive' else 0)
+
 def preprocess():
     '''preprocess cat/num features'''
     import numpy as np
@@ -39,7 +50,7 @@ def make_pipe(type = 'Regression'):
 
     return pipe
 
-def predict(X_train, y_train, X_test, type = 'Regression'):
+def predict(X_train = X_train, y_train = y_train, X_test = X_test, type = 'Regression'):
     pipe = make_pipe(type = 'Regression')
 
     pipe.fit(X_train, y_train)
